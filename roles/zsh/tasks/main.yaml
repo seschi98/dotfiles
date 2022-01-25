@@ -5,4 +5,5 @@
 - name: Set zsh as default shell
   ansible.builtin.user:
     name: "{{ ansible_env['USER'] }}"
-    shell: "{{ ansible_facts['zsh_executable_path'] }}"
+    shell: "{{ zsh_executable_path }}"
+  become: true
