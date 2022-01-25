@@ -6,24 +6,38 @@ CONFIG_DIR="$HOME/.config/dotfiles"
 DOTFILES_DIR="$HOME/.dotfiles"
 SSH_DIR="$HOME/.ssh"
 
+# Helper functions
+printInfo() {
+    printf "\033[1;32m[DotFiles] ${1}\033[0m\n"
+}
+printError() {
+    printf "\033[1;31m[DotFiles] ${1}\033[0m\n"
+}
+
 # Output information
 clear
+printInfo "Setting up development environment..."
+echo ""
 
 # Install Ansible
 if ! [ -x "$(command -v ansible)" ]; then
-  echo "Ansible not found on system, installing it via pip"
-  python3 -m pip install --user -q ansible
+  printInfo "Ansible not found on system, installing it via pip"
+  python3 -m pip install --user ansible
 else
-  echo "Found ansible installation: $(command -v ansible)"
+  printInfo "Found ansible installation: $(command -v ansible)"
 fi
+echo ""
 
 # Clone repository
 if ! [[ -d "$DOTFILES_DIR" ]]; then
-  echo "This is the first run, cloning git repository to $DOTFILES_DIR"
+  printInfo "This is the first run, cloning git repository to $DOTFILES_DIR"
   git clone "https://github.com/seschi98/dotfiles.git" "$DOTFILES_DIR"
 else
-  echo "Found existing dotfiles folder: $DOTFILES_DIR"
-  echo "Pulling changes for dotfiles from remote"
+  printInfo "Found existing dotfiles folder: $DOTFILES_DIR"
+  printInfo "Pulling changes for dotfiles from remote"
   git -C "$DOTFILES_DIR" pull
 fi
+echo ""
+
+exit
 
