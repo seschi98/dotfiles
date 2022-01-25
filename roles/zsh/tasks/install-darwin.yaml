@@ -1,0 +1,9 @@
+---
+- name: Install zsh
+  community.general.homebrew:
+    name: zsh
+    state: latest
+
+- name: Set zsh location
+  ansible.builtin.set_fact:
+    zsh_executable_path: /usr/zsh

@@ -1,0 +1,10 @@
+---
+- name: Install zsh
+  ansible.builtin.package:
+    name: zsh
+    state: latest
+  become: true
+
+- name: Set zsh location
+  ansible.builtin.set_fact:
+    zsh_executable_path: /usr/bin/zsh

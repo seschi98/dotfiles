@@ -1,0 +1,25 @@
+---
+- name: Check if homebrew is installed
+  when: ansible_facts['os_family'] == "Darwin"
+  register: install
+  ansible.builtin.stat:
+    path: /usr/local/bin/brew
+
+- name: Download homebrew installer
+  when: ansible_facts['os_family'] == "Darwin" and not install.stat.exists
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    dest: /tmp/install-homebrew.sh
+    mode: 0755
+
+- name: Execute homebrew installer
+  when: ansible_facts['os_family'] == "Darwin" and not install.stat.exists
+  # noqa command-instead-of-shell
+  ansible.builtin.shell:
+    cmd: /tmp/install-homebrew.sh
+
+- name: Remove homebrew installer
+  when: ansible_facts['os_family'] == "Darwin"
+  ansible.builtin.file:
+    path: /tmp/install-homebrew.sh
+    state: absent

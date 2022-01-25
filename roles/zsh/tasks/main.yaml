@@ -1,0 +1,8 @@
+---
+- name: Install zsh
+  ansible.builtin.include_tasks: "install-{{ ansible_facts['os_family'] | lower }}.yaml"
+
+- name: Set zsh as default shell
+  ansible.builtin.user:
+    name: "{{ ansible_env['USER'] }}"
+    shell: "{{ ansible_facts['zsh_executable_path'] }}"
