@@ -11,7 +11,7 @@ clear
 echo "Running dotfile updater..."
 
 # Install Ansible
-if ! [ -x "$(command -v ansibles)" ]; then
+if ! [ -x "$(command -v ansible)" ]; then
   echo "Ansible not found on system, installing it via pip"
   python3 -m pip install --user -q ansible
 else
@@ -23,6 +23,7 @@ if ! [[ -d "$DOTFILES_DIR" ]]; then
   echo "This is the first run, cloning git repository"
   git clone "https://github.com/seschi98/dotfiles.git" "$DOTFILES_DIR"
 else
+  echo "This is the first run, cloning git repository"
   git -C "$DOTFILES_DIR" pull
 fi
 
