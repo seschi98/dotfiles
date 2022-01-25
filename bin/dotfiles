@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+# Paths
+CONFIG_DIR="$HOME/.config/dotfiles"
+DOTFILES_DIR="$HOME/.dotfiles"
+SSH_DIR="$HOME/.ssh"
+
+# Output information
+clear
+echo "Running dotfile updater..."
+
+# Install Ansible
+if ! [ -x "$(command -v ansibles)" ]; then
+  echo "Ansible not found on system, installing it via pip"
+  python3 -m pip install --user -q ansible
+else
+  echo "Ansible installation found: $(command -v ansible)"
+fi
+
+# Clone repository
+if ! [[ -d "$DOTFILES_DIR" ]]; then
+  echo "This is the first run, cloning git repository"
+  git clone "https://github.com/seschi98/dotfiles.git" "$DOTFILES_DIR"
+else
+  git -C "$DOTFILES_DIR" pull
+fi
+
