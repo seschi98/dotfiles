@@ -39,5 +39,26 @@ else
 fi
 echo ""
 
-exit
+# Update Galaxy
+printInfo "Updating ansible galaxy modules"
+cd "$DOTFILES_DIR"
+ansible-galaxy install -r requirements.yaml
+echo ""
 
+printInfo "Launching ansible playbook"
+
+# Run playbook
+ARGS="--diff"
+
+if [[ -f "$CONFIG_DIR/values.yaml" ]]; then
+    ARGS="${ARGS} --extra-vars @$CONFIG_DIR/values.yaml"
+    printInfo "Found configuration file: $CONFIG_DIR/values.yaml"
+fi
+
+if [[ -f "$CONFIG_DIR/vault-password.txt" ]]; then
+    ARGS="${ARGS} --vault-password-file $CONFIG_DIR/vault-password.txt"
+    printInfo "Found vault password file: $CONFIG_DIR/vault-password.txt"
+fi
+
+echo ""
+ansible-playbook $ARGS $DOTFILES_DIR/main.yaml
