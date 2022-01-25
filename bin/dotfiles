@@ -23,7 +23,7 @@ if ! [[ -d "$DOTFILES_DIR" ]]; then
   echo "This is the first run, cloning git repository"
   git clone "https://github.com/seschi98/dotfiles.git" "$DOTFILES_DIR"
 else
-  echo "This is the first run, cloning git repository"
+  echo "Dotfiles repository already exists, pulling updates from remote"
   git -C "$DOTFILES_DIR" pull
 fi
 
