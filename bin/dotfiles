@@ -48,7 +48,7 @@ echo ""
 printInfo "Launching ansible playbook"
 
 # Run playbook
-ARGS="--diff -i 'localhost,' --extra-vars ANSIBLE_LOCALHOST_WARNING=false"
+ARGS="--diff -i 'localhost,' --extra-vars ANSIBLE_LOCALHOST_WARNING=false --ask-become-pass"
 
 if [[ -f "$CONFIG_DIR/values.yaml" ]]; then
     ARGS="${ARGS} --extra-vars @$CONFIG_DIR/values.yaml"
