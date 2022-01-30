@@ -1,9 +1,5 @@
 ---
-- name: Install zsh
-  community.general.homebrew:
-    name: zsh
-    state: latest
-
+# ZSH should already be installed on MacOS
 - name: Set zsh location
   ansible.builtin.set_fact:
-    zsh_executable_path: /usr/zsh
+    zsh_executable_path: /bin/zsh
